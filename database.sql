@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS orders (
 );
 
 
-INSERT INTO customers (customer_id, customer_name, customer_email, signup_date) VALUES
+INSERT INTO customers (customer_id, customer_name, customer_email, signup_date) 
+VALUES
 (1, 'Customer 1', 'customer1@example.com', '2022-04-23'),
 (2, 'Customer 2', 'customer2@example.com', '2023-01-15'),
 (3, 'Customer 3', 'customer3@example.com', '2022-08-05'),
@@ -56,7 +57,8 @@ INSERT INTO customers (customer_id, customer_name, customer_email, signup_date) 
 (20, 'Customer 20', 'customer20@example.com', '2021-09-02');
 
 
-INSERT INTO products (product_id, product_name, category, price) VALUES
+INSERT INTO products (product_id, product_name, category, price) 
+VALUES
 (1, 'Product 1', 'Laptops', 1200.00),
 (2, 'Product 2', 'Smartphones', 800.00),
 (3, 'Product 3', 'Tablets', 400.00),
@@ -91,6 +93,3 @@ VALUES
 (18, 18, 8, '2023-09-25', 3, 210.00),
 (19, 19, 9, '2023-09-30', 1, 1100.00),
 (20, 20, 10, '2023-10-01', 2, 1500.00);
-
-
-
