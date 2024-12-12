@@ -15,31 +15,31 @@ WHERE YEAR(signup_date) = 2023;
 
 -- Listar los clientes que no realizaron ninguna compra
 
-SELECT c.customer_id, c.customer_name, c.customer_email
+SELECT     c.customer_id, c.customer_name, c.customer_email
   
-FROM customers c
+FROM       customers c
   
-LEFT JOIN orders o ON c.customer_id = o.customer_id
+LEFT JOIN  orders o ON c.customer_id = o.customer_id
   
-WHERE o.order_id IS NULL;
+WHERE      o.order_id IS NULL;
 
 
 -- ANÁLISIS DE VENTAS
 -- ¿Cuál fue el producto más vendido en el último trimestre?
 
-SELECT    p.product_id,
-          p.product_name,
-          SUM(o.quantity) AS CantidadTotalVendida
+SELECT     p.product_id,
+           p.product_name,
+           SUM(o.quantity) AS CantidadTotalVendida
   
-FROM      orders o
+FROM       orders o
   
-JOIN      products p ON o.product_id = p.product_id
+JOIN       products p ON o.product_id = p.product_id
   
-WHERE     o.order_date BETWEEN '2023-10-01' AND '2023-12-31'
+WHERE      o.order_date BETWEEN '2023-10-01' AND '2023-12-31'
   
-GROUP BY  p.product_id, p.product_name
+GROUP BY   p.product_id, p.product_name
   
-ORDER BY  CantidadTotalVendida DESC
+ORDER BY   CantidadTotalVendida DESC
   
 LIMIT 1;
 
@@ -60,3 +60,26 @@ GROUP BY   p.category
 ORDER BY   TotalVentas DESC
 
 LIMIT 1;
+
+
+-- MÉTRICAS DE NEGOCIO
+-- Calcula el ingreso total generado por cada cliente
+
+SELECT    c.customer_id,
+          c.customer_name,
+          SUM(o.total_price) AS IngresoTotalxCliente
+  
+FROM      customers c
+  
+JOIN      orders o ON c.customer_id = o.customer_id
+  
+GROUP BY  c.customer_id, c.customer_name
+  
+ORDER BY  IngresoTotalxCliente DESC;
+
+
+-- Encuentra el promedio de cantidad de productos vendidos por pedido
+
+SELECT    AVG(o.quantity) AS PromedioProductosVendidosxPedido
+  
+FROM      orders o;
