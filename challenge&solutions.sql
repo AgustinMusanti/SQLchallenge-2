@@ -83,3 +83,56 @@ ORDER BY  IngresoTotalxCliente DESC;
 SELECT    AVG(o.quantity) AS PromedioProductosVendidosxPedido
   
 FROM      orders o;
+
+
+-- BONUS
+-- Identifica el segundo producto más vendido por categoría
+
+WITH      ProductSales AS (
+  
+SELECT 
+          p.category,
+          p.product_id,
+          p.product_name,
+          SUM(o.quantity) AS CantidadTotalVendida
+  
+FROM      products p
+  
+JOIN      orders o ON p.product_id = o.product_id
+  
+GROUP BY  p.category, p.product_id, p.product_name
+  
+),
+  
+RankedSales AS (
+
+SELECT    category,
+          product_id,
+          product_name,
+          CantidadTotalVendida,
+          RANK() OVER (PARTITION BY category ORDER BY CantidadTotalVendida DESC) AS RankingVentas
+  
+FROM      ProductSales
+  
+)
+  
+SELECT    category,
+          product_id,
+          product_name,
+          CantidadTotalVendida
+  
+FROM      RankedSales
+  
+WHERE     RankingVentas = 2;
+
+
+-- Calcula el ingreso total mensual y muestra los meses ordenados de mayor a menor.
+
+SELECT    DATE_FORMAT(o.order_date, '%Y-%m') AS Mes,
+          SUM(o.total_price) AS TotalVentas
+  
+FROM      orders o
+  
+GROUP BY  DATE_FORMAT(o.order_date, '%Y-%m')
+  
+ORDER BY  TotalVentas DESC;
