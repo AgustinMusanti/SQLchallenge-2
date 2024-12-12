@@ -6,11 +6,11 @@ USE TechMarket;
 -- DATOS DE CLIENTES:
 -- ¿Cuántos clientes se registraron en el año 2023?
 
-SELECT COUNT(*) AS TotalClientes2023
+SELECT     COUNT(*) AS TotalClientes2023
   
-FROM customers
+FROM       customers
   
-WHERE YEAR(signup_date) = 2023;
+WHERE      YEAR(signup_date) = 2023;
 
 
 -- Listar los clientes que no realizaron ninguna compra
